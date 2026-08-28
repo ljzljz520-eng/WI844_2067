@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "metrics": {
+    "production_loc": 13245,
+    "production_files": 33,
+    "production_packages": 9,
+    "test_files": 9,
+    "production_functions": 995,
+    "decision_points": 2766
+  },
+  "persistence": {
+    "module": "go.etcd.io/bbolt",
+    "entities": ["Park", "Vehicle", "DispatchOrder", "DispatchEvent"],
+    "reopen_test": "TestPersistenceSurvivesReopen"
+  },
+  "workflows": [
+    {"steps": ["parse park parameter", "validate active park", "persist dispatch order", "query dispatch screen"], "test": "TestWorkflowDispatchQuery"},
+    {"steps": ["read queued dispatch", "match vehicle zone", "check capacity", "record load event"], "test": "TestWorkflowVehicleLoad"},
+    {"steps": ["read loaded dispatch", "validate completion", "persist completed status", "record completion event"], "test": "TestWorkflowComplete"}
+  ]
+}
